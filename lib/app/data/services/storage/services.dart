@@ -6,8 +6,8 @@ class StorageService extends GetxService {
   late GetStorage box;
   Future<StorageService> init() async {
     box = GetStorage();
-    await box.write(taskKey, []);
-    // await box.writeIfNull(taskKey, []);
+    // await box.write(taskKey, []);
+    await box.writeIfNull(taskKey, []);
     return this;
   }
 

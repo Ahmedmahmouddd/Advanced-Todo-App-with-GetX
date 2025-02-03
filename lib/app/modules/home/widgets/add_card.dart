@@ -15,30 +15,42 @@ class AddCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final icons = getIcons();
-    var squareWidth = Get.width - 12.0.wp;
+    var squareWidth = Get.width - 12.0;
     return Container(
       width: squareWidth / 2,
       height: squareWidth / 2,
-      margin: EdgeInsets.all(3.0.wp),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: InkWell(
         onTap: () async {
           Get.defaultDialog(
               backgroundColor: Colors.grey[100],
-              titlePadding: EdgeInsets.symmetric(vertical: 5.0.wp),
-              radius: 5,
+              titlePadding: EdgeInsets.only(top: 16.0, bottom: 4),
+              radius: 12,
               title: "Add Task",
+              titleStyle: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey[700]),
               content: Form(
                   key: homeController.formKey,
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 3.0.wp),
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: TextFormField(
+                          style: TextStyle(color: Colors.grey[700], fontWeight: FontWeight.w500),
                           controller: homeController.editingController,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: "Title ",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide.none,
+                            ),
+                            filled: true,
+                            labelStyle: TextStyle(color: Colors.grey[600], fontWeight: FontWeight.w500),
+                            fillColor: Colors.grey[300],
+                            labelText: "Note Title",
                           ),
+                          cursorColor: Colors.grey[600],
+                          cursorWidth: 2,
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
                               return "Please enter title";
@@ -49,7 +61,8 @@ class AddCard extends StatelessWidget {
                       ),
                       SizedBox(height: 8),
                       Wrap(
-                        spacing: 2.0.wp,
+                        spacing: 6.0,
+                        runSpacing: 6,
                         children: icons
                             .map((e) => Obx(() {
                                   final index = icons.indexOf(e);
@@ -67,6 +80,7 @@ class AddCard extends StatelessWidget {
                                 }))
                             .toList(),
                       ),
+                      SizedBox(height: 8),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: blue,
@@ -85,7 +99,7 @@ class AddCard extends StatelessWidget {
                                   : EasyLoading.showError("Duplicated Task");
                             }
                           },
-                          child: Text('Confirm'))
+                          child: Text('Confirm', style: TextStyle(color: Colors.white)))
                     ],
                   )));
           homeController.editingController.clear();
@@ -93,10 +107,8 @@ class AddCard extends StatelessWidget {
         },
         child: DottedBorder(
             color: Colors.grey[400]!,
-            dashPattern: const [8, 4],
-            child: Center(
-              child: Icon(Icons.add, size: 10.0.sp, color: Colors.grey),
-            )),
+            dashPattern: const [12, 6],
+            child: Center(child: Icon(Icons.add, size: 26.0, color: Colors.grey))),
       ),
     );
   }
