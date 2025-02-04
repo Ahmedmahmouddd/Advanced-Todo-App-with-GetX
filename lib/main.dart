@@ -4,9 +4,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:get_x/app/data/services/storage/services.dart';
 import 'package:device_preview/device_preview.dart';
-
 import 'package:get_x/app/modules/home/binding.dart';
-import 'package:get_x/app/modules/home/view.dart';
+import 'package:get_x/app/modules/home/home_page.dart';
 
 void main() async {
   await GetStorage.init();
