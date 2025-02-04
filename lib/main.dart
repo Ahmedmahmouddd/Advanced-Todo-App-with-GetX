@@ -13,6 +13,7 @@ void main() async {
   await Get.putAsync(() => StorageService().init());
   runApp(DevicePreview(
     enabled: true,
+    backgroundColor: Colors.white,
     builder: (context) => MyApp(),
   ));
 }
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: ThemeData(fontFamily: 'poppins'),
       title: 'Todo List using GetX',
       debugShowCheckedModeBanner: false,
       initialBinding: HomeBinding(),

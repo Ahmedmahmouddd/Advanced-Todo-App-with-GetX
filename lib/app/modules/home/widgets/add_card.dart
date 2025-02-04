@@ -37,6 +37,7 @@ class AddCard extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: TextFormField(
+                          autofocus: true,
                           style: TextStyle(color: Colors.grey[700], fontWeight: FontWeight.w500),
                           controller: homeController.editingController,
                           decoration: InputDecoration(
@@ -97,6 +98,7 @@ class AddCard extends StatelessWidget {
                               homeController.addTask(task)
                                   ? EasyLoading.showSuccess("Create Success")
                                   : EasyLoading.showError("Duplicated Task");
+                              homeController.editingController.clear();
                             }
                           },
                           child: Text('Confirm', style: TextStyle(color: Colors.white)))
