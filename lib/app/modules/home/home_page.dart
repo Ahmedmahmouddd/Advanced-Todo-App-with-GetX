@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -57,9 +59,9 @@ class HomePage extends GetView<HomeController> {
               backgroundColor: controller.deleting.value == true ? Colors.red : blue,
               shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(180))),
               onPressed: () {
-                if(controller.tasks.isNotEmpty){
+                if (controller.tasks.isNotEmpty) {
                   Get.to(() => AddDialog(), transition: Transition.downToUp);
-                }else{
+                } else {
                   EasyLoading.showInfo("Create a task first by clicking the + button");
                 }
               },

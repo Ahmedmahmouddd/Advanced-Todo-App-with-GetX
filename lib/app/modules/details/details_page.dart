@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_x/app/core/utils/extention.dart';
 import 'package:get_x/app/modules/details/widgets/doing_list.dart';
+import 'package:get_x/app/modules/details/widgets/done_list.dart';
 import 'package:get_x/app/modules/home/controller.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
@@ -16,11 +17,11 @@ class DetailsPage extends StatelessWidget {
     var color = HexColor.fromHex(task.color);
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: ListView(
-          children: [
-            Row(
+      body: ListView(
+        children: [
+          Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
@@ -35,46 +36,51 @@ class DetailsPage extends StatelessWidget {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 12.0, bottom: 4.0, left: 12.0, right: 12.0),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 12.0, bottom: 4.0, left: 28.0, right: 28.0),
+            child: Row(
+              children: [
+                Icon(IconData(task.icon, fontFamily: "MaterialIcons"), color: color),
+                SizedBox(width: 6),
+                Text(task.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              ],
+            ),
+          ),
+          Obx(() {
+            var totalTodos = homeController.doingTodos.length + homeController.doneTodos.length;
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 28.0),
               child: Row(
                 children: [
-                  Icon(IconData(task.icon, fontFamily: "MaterialIcons"), color: color),
-                  SizedBox(width: 6),
-                  Text(task.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  Text(totalTodos == 1 ? "$totalTodos Task" : "$totalTodos Tasks",
+                      style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 14)),
+                  SizedBox(width: 48),
+                  Expanded(
+                      child: StepProgressIndicator(
+                    totalSteps: totalTodos == 0 ? 1 : totalTodos,
+                    currentStep: homeController.doneTodos.length,
+                    padding: 0,
+                    size: 6,
+                    roundedEdges: Radius.circular(180),
+                    selectedGradientColor: LinearGradient(
+                        colors: [color.withAlpha(70), color],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight),
+                    unselectedGradientColor: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [Colors.grey[300]!, Colors.grey[300]!],
+                    ),
+                  ))
                 ],
               ),
-            ),
-            Obx(() {
-              var totalTodos = homeController.doingTodos.length + homeController.doneTodos.length;
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: Row(
-                  children: [
-                    Text(totalTodos == 1 ? "$totalTodos Task" : "$totalTodos Tasks",
-                        style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 14)),
-                    SizedBox(width: 48),
-                    Expanded(
-                        child: StepProgressIndicator(
-                      totalSteps: totalTodos == 0 ? 1 : totalTodos,
-                      currentStep: homeController.doneTodos.length,
-                      padding: 0,
-                      selectedGradientColor: LinearGradient(
-                          colors: [Colors.white.withAlpha(30), color],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight),
-                      unselectedGradientColor: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [Colors.grey[300]!, Colors.grey[300]!],
-                      ),
-                    ))
-                  ],
-                ),
-              );
-            }),
-            SizedBox(height: 8),
-            Form(
+            );
+          }),
+          SizedBox(height: 8),
+          Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Form(
               key: homeController.formKey,
               child: TextFormField(
                 style: TextStyle(color: Colors.grey[700], fontWeight: FontWeight.w500),
@@ -119,9 +125,11 @@ class DetailsPage extends StatelessWidget {
                 },
               ),
             ),
-            DoingList()
-          ],
-        ),
+          ),
+          SizedBox(height: 4),
+          DoingList(),
+          DoneList()
+        ],
       ),
     );
   }
