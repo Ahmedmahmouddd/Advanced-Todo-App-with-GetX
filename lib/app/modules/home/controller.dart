@@ -12,6 +12,7 @@ class HomeController extends GetxController {
   final tasks = <Task>[].obs;
   final chipIndex = 0.obs;
   final deleting = false.obs;
+  final tabIndex = 0.obs;
   final editingController = TextEditingController();
   final task = Rx<Task?>(null);
   final doingTodos = <dynamic>[].obs;
@@ -29,6 +30,10 @@ class HomeController extends GetxController {
         doingTodos.add(todo);
       }
     }
+  }
+
+  void changeTabIndex(int index) {
+    tabIndex.value = index;
   }
 
   @override
