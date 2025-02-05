@@ -49,8 +49,8 @@ class DoingList extends StatelessWidget {
                         ],
                       ),
                     )),
-                if (homeController.doingTodos.isNotEmpty)
-                  Divider(color: Colors.grey[300], thickness: 2, indent: 20, endIndent: 20),
+                if (homeController.doingTodos.isNotEmpty) Divider(indent: 48, endIndent: 48, thickness: 2),
+                
               ],
             )),
     );

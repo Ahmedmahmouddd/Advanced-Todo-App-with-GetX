@@ -135,4 +135,28 @@ class HomeController extends GetxController {
   int getDoneTodo(Task task) {
     return task.todos!.where((element) => element['done'] == true).length;
   }
+
+  int getTotalTasks() {
+    var res = 0;
+    for (int i = 0; i < tasks.length; i++) {
+      if (tasks[i].todos != null) {
+        res += tasks[i].todos!.length;
+      }
+    }
+    return res;
+  }
+
+  int getTotalDoneTasks() {
+    var res = 0;
+    for (int i = 0; i < tasks.length; i++) {
+      if (tasks[i].todos != null) {
+        for (int j = 0; j < tasks[i].todos!.length; j++) {
+          if (tasks[i].todos![j]['done'] == true) {
+            res++;
+          }
+        }
+        }
+    }
+    return res;
+  }
 }
