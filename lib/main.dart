@@ -11,7 +11,7 @@ void main() async {
   await GetStorage.init();
   await Get.putAsync(() => StorageService().init());
   runApp(DevicePreview(
-    enabled: true,
+    enabled: false,
     backgroundColor: Colors.white,
     builder: (context) => MyApp(),
   ));
