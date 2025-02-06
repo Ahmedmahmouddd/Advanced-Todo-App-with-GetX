@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:get_x/app/core/notification_service/notification_service.dart';
 import 'package:get_x/app/core/utils/extention.dart';
 import 'package:get_x/app/core/values/colors.dart';
 import 'package:get_x/app/modules/home/controller.dart';
@@ -14,7 +15,6 @@ class AddDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         backgroundColor: Colors.grey[100],
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -44,6 +44,9 @@ class AddDialog extends StatelessWidget {
                             );
                             if (success) {
                               EasyLoading.showSuccess("Todo Item added to task");
+                              NotificationService().showNotificationMeathod(
+                                  title: "New Todo Added to ${homecontroller.task.value!.title}",
+                                  body: homecontroller.editingController.text);
                               Get.back();
                               homecontroller.editingController.clear();
                               homecontroller.chooseTask(null);
@@ -60,7 +63,7 @@ class AddDialog extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("New Task", style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
+                child: Text("New Todo", style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
               ),
               Form(
                 key: homecontroller.formKey,
