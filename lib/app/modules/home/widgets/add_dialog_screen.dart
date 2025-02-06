@@ -14,7 +14,7 @@ class AddDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: homecontroller.formKey,
+
         backgroundColor: Colors.grey[100],
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
