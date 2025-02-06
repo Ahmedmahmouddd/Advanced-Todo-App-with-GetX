@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:get_x/app/core/notification_service/notification_service.dart';
 import 'package:get_x/app/core/utils/extention.dart';
 import 'package:get_x/app/core/values/colors.dart';
 import 'package:get_x/app/data/models/task.dart';
@@ -95,6 +96,10 @@ class AddCard extends StatelessWidget {
                               var task = Task(
                                   title: homeController.editingController.text, icon: icon, color: color);
                               Get.back();
+                              NotificationService().showNotificationMeathod(
+                                title: "New Task created",
+                                body: homeController.editingController.text,
+                              );
                               homeController.addTask(task)
                                   ? EasyLoading.showSuccess("Create Success")
                                   : EasyLoading.showError("Duplicated Task");
